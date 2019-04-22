@@ -1,0 +1,46 @@
+<div style="background-color:skyblue;color:white;padding:20px;">
+    <h2>WEATHER FORCAST</h2>
+
+</div>
+
+<p>Enter The City</p> 
+<input  type="text" [(ngModel)]='name'>
+
+<br/>
+<br/>
+
+  <button (click)='getData()'>   SEARCH WEATHER</button>
+
+  <h1 align="center">Weather Information</h1>
+  
+  <div style="background-color:lightblue; width: 50%; padding: 10px; border: 1px solid #CCC ">
+      <h3>{{name}}</h3>
+      <div class="date"  >{{this.dayToDayData.dt_txt}}</div>
+      <div class="desc">Overcast</div>
+     <div class="scale">&deg;F</div>
+        
+       
+     
+  </div>
+  
+
+  <table *ngFor='let data of dayToDayData' >
+      <app-weather [view]=data [cityName]=name></app-weather>
+  </table>
+
+  <!-- <div class="weather-forecast" role="main">
+      <div class="location">{{this.name}}</div>
+      <div class="date">{{this.dayToDayData.dt_txt}}</div>
+      <div class="desc">Overcast</div>
+      <div class="current">
+        <div class="visual">
+          <div class="icon cloudy"></div>
+          <div class="scale">&deg;F</div>
+        </div>
+        </div>
+        </div>
+      </div> -->
+
+
+
+
