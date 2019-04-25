@@ -1,15 +1,7 @@
- <div  style="background-color:lightblue; width: 100%; padding: 10px; border: 1px solid #CCC ">
-      <div>
-          <table style="width: 100%; text-align: center">
-              
-             
-                  <tr align="center">
-                          <td>{{this.view.day}}</td>
-                        <td>{{this.view.main.temp_max}}</td>
-                        <td>{{this.view.main.pressure}}</td>
-                        <td><img src={{url}} ></td>
-                  </tr>
-           
-          </table>
-      </div>
-  </div>
+<div class="date">{{date}}</div>
+        <div><img src="{{url}}"/></div>
+        <div class="seven-day-temp">
+          <div class="temp-high">{{temp_max}}<div class="scale">°F</div></div>
+          <div class="temp-low">{{temp_min}}<div class="scale">°F</div></div>
+        </div>
+        <div class="pcount">{{pressure}} Bar</div>

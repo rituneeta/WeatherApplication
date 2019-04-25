@@ -1,46 +1,37 @@
-<div style="background-color:skyblue;color:white;padding:20px;">
-    <h2>WEATHER FORCAST</h2>
+<!--The content below is only a placeholder and can be replaced.-->
+    <h2 align="center" style="color:black">WEATHER FORCAST</h2>
 
+<div class="location" style="color:black">
+  <br/>
+  
+<input [(ngModel)]="city" placeholder="Enter The City"/>
+<button (click)="getData()">Search Weather</button>
 </div>
-
-<p>Enter The City</p> 
-<input  type="text" [(ngModel)]='name'>
-
 <br/>
 <br/>
-
-  <button (click)='getData()'>   SEARCH WEATHER</button>
-
-  <h1 align="center">Weather Information</h1>
-  
-  <div style="background-color:lightblue; width: 50%; padding: 10px; border: 1px solid #CCC ">
-      <h3>{{name}}</h3>
-      <div class="date"  >{{this.dayToDayData.dt_txt}}</div>
-      <div class="desc">Overcast</div>
-     <div class="scale">&deg;F</div>
+<div class="weather-forecast" role="main" style="color: black" >
+    <div class="location">{{forecast.city.name}},{{forecast.city.country}}</div>
+    <div class="current">
+      <div class="visual">
+        <div><img src="{{url}}"/></div>
+        <div class="temp">{{temp}}</div>
+        <div class="scale">°F</div>
+      </div>
+      <div class="description">
+        <div class="temp">{{comment}}</div>
+        <br>
+        <div class="temp">{{pressure}} Bar</div>
+      </div>
+    </div>
+    <br/>
+    <br/>
+    <div class="seven-day" >
+      <div class="seven-day-fc" *ngFor="let data of dayList">
+    
+          <app-weather [data]="data"></app-weather>
         
-       
-     
+      </div>
+      
+    </div>
   </div>
-  
-
-  <table *ngFor='let data of dayToDayData' >
-      <app-weather [view]=data [cityName]=name></app-weather>
-  </table>
-
-  <!-- <div class="weather-forecast" role="main">
-      <div class="location">{{this.name}}</div>
-      <div class="date">{{this.dayToDayData.dt_txt}}</div>
-      <div class="desc">Overcast</div>
-      <div class="current">
-        <div class="visual">
-          <div class="icon cloudy"></div>
-          <div class="scale">&deg;F</div>
-        </div>
-        </div>
-        </div>
-      </div> -->
-
-
-
-
+<router-outlet></router-outlet>

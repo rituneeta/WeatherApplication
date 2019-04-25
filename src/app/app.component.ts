@@ -1,71 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService } from './data.service';
-import {WeatherComponent} from './weather/weather.component';
-import { Clouds } from './weather/weather.component';
-//import { RootObject } from './weatherData';
-
-
+import { Component } from '@angular/core';
+import {DataService} from './data.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Weather';
-  url:string;
-  name: string;
-   marks: any[];
-   cloudData: RootObject;
-   dayToDayData: List[]=[];
-   
-
-
+  title = 'weatherApp';
+   forecast: RootObject;
+   city: string;
+   url: string;
+  comment: string;
+  temp: number;
+  pressure: number;
+   dayList: List[] = [];
   constructor(private data: DataService) {
-    // this.name='fg';
+
   }
-  getData(){
-    var days = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday'
-    ];
-    this.data.getFact(this.name).subscribe((d: RootObject)=>{
-
-         this.cloudData = d;
-         this.dayToDayData=[];
-
-         this.dayToDayData.push(this.cloudData.list[0]);
-         this.dayToDayData.push(this.cloudData.list[2]);
-         this.dayToDayData.push(this.cloudData.list[11]);
-         this.dayToDayData.push(this.cloudData.list[21]);
-         this.dayToDayData.push(this.cloudData.list[31]);
-         this.dayToDayData.push(this.cloudData.list[35]);
-         
-         let tempdata = this.dayToDayData.map((data)=>{
-          data['day'] = days[new Date(data.dt_txt).getDay()];
-          return data;
-       })
-       
-       this.dayToDayData = tempdata;
-
-        console.log ( this.dayToDayData );
-
-
-         console.log ( this.cloudData );
-
-     });
-  }
-  getCloudData()
-  {
-
+  getData() {
+    this.dayList = [];
+    this.data.getWeatherData(this.city).subscribe((data: RootObject) => {
+      this.forecast = data;
+      console.log(this.forecast);
+      this.url = 'http://openweathermap.org/img/w/' + this.forecast.list[0].weather[0].icon + '.png';
+      this.comment = this.forecast.list[0].weather[0].description;
+      this.temp = this.forecast.list[0].main.temp;
+      this.pressure = this.forecast.list[0].main.pressure;
+      this.dayList.push(this.forecast.list[8]);
+      this.dayList.push(this.forecast.list[16]);
+      this.dayList.push(this.forecast.list[24]);
+      this.dayList.push(this.forecast.list[32]);
+    });
+    console.log(this.forecast);
+    
   }
 
 }
-
 export interface Main {
   temp: number;
   temp_min: number;
@@ -124,7 +94,6 @@ export interface RootObject {
   cod: string;
   message: number;
   cnt: number;
-   list: List[];
+  list: List[];
   city: City;
 }
-
